@@ -1,0 +1,26 @@
+# Render 部署配置文件
+# https://render.com/docs/yaml-spec
+
+services:
+  # 主应用服务
+  - type: web
+    name: nextjs-email-client
+    env: node
+    buildCommand: "npm install && npm run build"
+    startCommand: "npm start"
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        value: file:./db/custom.db
+    # 健康检查
+    healthCheck:
+      path: /api/health
+      interval: 30
+      timeout: 10
+      gracePeriod: 60
+    # 自动部署
+    repo: https://github.com/runfeng771/em17
+    branch: main
+    # 实例类型
+    instanceType: starter
