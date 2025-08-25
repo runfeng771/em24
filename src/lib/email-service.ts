@@ -55,8 +55,8 @@ class EmailService {
           }
 
           // 获取最近7天的未读邮件和最近1天的已读邮件
-          const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
-          const oneDayAgo = new Date(Date.now() - 1 * 24 * 60 * 60 * 1000);
+          const sevenDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+          const oneDayAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
           console.log(`搜索从 ${sevenDaysAgo.toISOString()} 开始的未读邮件和从 ${oneDayAgo.toISOString()} 开始的已读邮件`);
           
           // 使用更高效的搜索条件：优先获取未读邮件
@@ -94,7 +94,7 @@ class EmailService {
               allResults.sort((a, b) => b - a);
               
               // 限制只处理最新的100封邮件以提升性能
-              const limitedResults = allResults.slice(0, 100)
+              const limitedResults = allResults.slice(0, 300)
               console.log(`处理最新的 ${limitedResults.length} 封邮件`);
               
               const fetch = imap.fetch(limitedResults, { 
